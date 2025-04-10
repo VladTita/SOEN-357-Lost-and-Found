@@ -1,27 +1,66 @@
 import { useState } from "react";
 
 export default function App() {
-  const [page, setPage] = useState("login");
+  const [page, setPage] = useState("welcome");
   const [selectedItem, setSelectedItem] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [proofFiles, setProofFiles] = useState([]);
+  const [isUrgent, setIsUrgent] = useState(false);
+  const [reportType, setReportType] = useState('lost');
+  const [reportDetails, setReportDetails] = useState({ name: '', description: '', location: '', category: 'Electronics', contactInfo: '' });
+
+  const categories = ['Electronics', 'Personal Items', 'Books', 'Clothing', 'Other'];
 
   const items = [
-    { id: 1, name: "Calculator", location: "Library", image: "/assets/calc.jpg" },
-    { id: 2, name: "Mouse", location: "EV Building", image: "/assets/mouse.jpg" },
-    { id: 3, name: "Pencil Box", location: "Hall Building", image: "/assets/pencilbox.jpg" },
-    { id: 4, name: "Pencil", location: "Classroom H-1025", image: "/assets/pencil.jpg" },
-    { id: 5, name: "Bottle", location: "Gym", image: "/assets/bottle.jpg" },
-    { id: 6, name: "iPhone", location: "Guy Metro", image: "/assets/iphone.jpg" },
-    { id: 7, name: "Laptop", location: "LB Cafe", image: "/assets/laptop.jpg" },
-    { id: 8, name: "Backpack", location: "MB Entrance", image: "/assets/backpack.jpg" },
+    { id: 1, name: "Calculator", location: "Library", image: "src/assets/calculator.png", category: "Electronics" },
+    { id: 2, name: "Mouse", location: "EV Building", image: "src/assets/mouse.png", category: "Electronics" },
+    { id: 3, name: "Pencil Box", location: "Hall Building", image: "src/assets/pencilbox.png", category: "Stationery" },
+    { id: 4, name: "Pencil", location: "Classroom H-1025", image: "src/assets/pencil.png", category: "Stationery" },
+    { id: 5, name: "Bottle", location: "Gym", image: "src/assets/bottle.png", category: "Personal Items" },
+    { id: 6, name: "iPhone", location: "Guy Metro", image: "src/assets/iphone.png", category: "Electronics" },
+    { id: 7, name: "Laptop", location: "LB Cafe", image: "src/assets/laptop.png", category: "Electronics" },
+    { id: 8, name: "Backpack", location: "MB Entrance", image: "src/assets/backpack.png", category: "Personal Items" },
   ];
+
+  if (page === "welcome") {
+    return (
+      <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: '#5A0B0B' }}>
+        <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <h1 style={{ color: '#5A0B0B', fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>WELCOME TO CONCORDIA LOST & FOUND</h1>
+            <img src="src/assets/concordia-logo.png" alt="Concordia University Logo" style={{ width: '200px', height: 'auto', margin: '1rem auto', display: 'block' }} />
+          </div>
+          <div style={{ backgroundColor: '#f8f9fa', padding: '1rem', borderRadius: '8px', marginBottom: '1rem' }}>
+            <h3 style={{ color: '#5A0B0B', margin: '0 0 0.5rem 0' }}>Access Requirements</h3>
+            <p>• Available exclusively for Concordia students and faculty/staff</p>
+            <p>• Valid @concordia.ca email required for authentication</p>
+            <p>• Your account must be active to access the system</p>
+          </div>
+          <button onClick={() => setPage("login")} style={{ width: '100%', padding: '0.75rem', backgroundColor: '#5A0B0B', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1.1rem', fontWeight: '500', transition: 'background-color 0.2s' }}>Login with Concordia Account</button>
+          <div style={{ marginTop: '1rem', textAlign: 'center', color: '#666' }}>
+            <a href="/" style={{ color: '#5A0B0B', textDecoration: 'none', fontWeight: '500' }}> Contact Support</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (page === "login") {
     return (
       <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: '#5A0B0B' }}>
-        <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem' }}>
-          <input placeholder="Concordia Email" style={{ display: 'block', marginBottom: '1rem', width: '100%' }} />
-          <input placeholder="Password" type="password" style={{ display: 'block', marginBottom: '1rem', width: '100%' }} />
-          <button onClick={() => setPage("home")} style={{ width: '100%' }}>Login</button>
+        <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '1rem', maxWidth: '400px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+          <img src="src/assets/concordia-logo.png" alt="Concordia University Logo" style={{ width: '200px', height: 'auto', margin: '0 auto 1rem', display: 'block' }} />
+          <div style={{ marginBottom: '1rem' }}>
+            <input type="email" placeholder="Your @concordia.ca email" style={{ display: 'block', width: '90%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem', transition: 'border-color 0.2s' }} />
+          </div>
+          <div style={{ marginBottom: '1rem' }}>
+            <input type="password" placeholder="Password" style={{ display: 'block', width: '90%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem', transition: 'border-color 0.2s' }} />
+          </div>
+          <button onClick={() => setPage("home")} style={{ width: '100%', padding: '0.75rem', backgroundColor: '#5A0B0B', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '1.1rem', fontWeight: '500' }}>Login to Concordia Account</button>
+          <div style={{ marginTop: '1rem', textAlign: 'center', color: '#666' }}>
+            <p>Having trouble logging in? </p>
+          </div>
         </div>
       </div>
     );
@@ -62,7 +101,7 @@ export default function App() {
             (Messages...)
           </div>
           <input placeholder="Type a message..." style={{ width: '100%' }} />
-        </div>
+          </div>
       </div>
     );
   }
