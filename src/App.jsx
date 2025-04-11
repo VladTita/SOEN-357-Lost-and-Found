@@ -92,7 +92,7 @@ export default function App() {
         <button onClick={() => setPage("home")} style={{ marginBottom: '1rem' }}>← Back</button>
         <h2>{selectedItem.name}</h2>
         <img src={selectedItem.image} alt={selectedItem.name} style={{ width: '100%', height: '200px', objectFit: 'cover', margin: '1rem 0' }} />
-        <p><strong>Description:</strong> Lorem ipsum dolor sit amet...</p>
+        <p><strong>Description:</strong> This item is ...</p>
         <p><strong>Location:</strong> {selectedItem.location}</p>
         <img src="/assets/map_placeholder.png" alt="Map" style={{ width: '100%', height: '200px', objectFit: 'cover', margin: '1rem 0' }} />
         <div style={{ border: '1px solid #ddd', padding: '1rem' }}>
