@@ -1,3 +1,7 @@
+### Link to demo: 
+https://github.com/VladTita/SOEN-357-Lost-and-Found/blob/main/demo(1).gif
+
+### How to run
 This app uses Node.js so make sure it is installed to run. 
 
 In order to run the app follow the following commands: 
