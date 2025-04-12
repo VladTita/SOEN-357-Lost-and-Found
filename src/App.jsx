@@ -15,7 +15,12 @@ export default function App() {
     { id: 7, name: "Laptop", location: "LB Cafe", image: "src/assets/laptop.png", category: "Electronics", x: 10, y: 70 },
     { id: 8, name: "Backpack", location: "MB Entrance", image: "src/assets/backpack.png", category: "Personal Items", x: 80, y: 90 },
   ]);
-
+  const [messages, setMessages] = useState([
+    { sender: "founder", text: "Hey! I found your item." },
+    { sender: "you", text: "Thanks! Where can I get it?" }
+  ]);
+  const [newMessage, setNewMessage] = useState("");
+  
   const categories = {
     Electronics: "💻",
     "Personal Items": "🎒",
@@ -296,10 +301,42 @@ export default function App() {
         <div style={{ border: '1px solid #ddd', padding: '1rem' }}>
           <h3>Chat</h3>
           <div style={{ height: '100px', overflowY: 'auto', backgroundColor: '#eee', padding: '0.5rem', marginBottom: '0.5rem' }}>
-            (Messages...)
+            {messages.map((msg, idx) => (
+              <div key={idx} style={{ textAlign: msg.sender === "you" ? "right" : "left", marginBottom: '0.5rem' }}>
+                <span style={{
+                  backgroundColor: msg.sender === "you" ? "#5A0B0B" : "#e0e0e0",
+                  color: msg.sender === "you" ? "white" : "black",
+                  padding: "0.5rem 1rem",
+                  borderRadius: "20px",
+                  display: "inline-block",
+                  maxWidth: "70%"
+                }}>
+                  {msg.text}
+                </span>
+              </div>
+            ))}
           </div>
-          <input placeholder="Type a message..." style={{ width: '100%' }} />
-          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (newMessage.trim() === "") return;
+              setMessages([...messages, { sender: "you", text: newMessage }]);
+              setNewMessage("");
+            }}
+            style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem" }}
+          >
+            <input
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Type a message..."
+              style={{ flex: 1, padding: "0.5rem", borderRadius: "8px", border: "1px solid #ccc" }}
+            />
+            <button type="submit" style={{ backgroundColor: "#5A0B0B", color: "white", border: "none", borderRadius: "8px", padding: "0 1rem" }}>
+              Send
+            </button>
+          </form>
+        </div>
+
       </div>
     );
   }
